@@ -92,6 +92,11 @@ Promises:
 */
 void UserApp1Initialize(void)
 {
+  LedOn(BLUE);
+  LedToggle(RED);
+  LedBlink(GREEN, LED_2HZ);
+  LedPWM(BLUE, LED_PWM_5);
+
   /* If good initialization, set state to Idle */
   if( 1 )
   {
@@ -140,7 +145,12 @@ State Machine Function Definitions
 /* What does this state do? */
 static void UserApp1SM_Idle(void)
 {
-     
+     static u16 u16BlinkCount = 0;
+     u16BlinkCount++;
+     if (u16BlinkCount == 250){
+      u16BlinkCount = 0;
+      LedToggle(RED);
+     }    
 } /* end UserApp1SM_Idle() */
      
 
