@@ -160,7 +160,7 @@ static void UserApp1SM_Idle(void)
 
      if (u16BlinkCount == 250){
       u16BlinkCount = 0;
-      if (u8Counter == 0){
+      if (u8Counter == 16){
         u8Counter = 0;
       }
       if (u8Counter & 0x01){
