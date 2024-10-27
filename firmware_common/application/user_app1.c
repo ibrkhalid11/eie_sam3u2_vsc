@@ -92,6 +92,14 @@ Promises:
 */
 void UserApp1Initialize(void)
 {
+  LedOff(WHITE);
+  LedOff(PURPLE);
+  LedOff(BLUE);
+  LedOff(CYAN);
+  LedOff(GREEN);
+  LedOff(YELLOW);
+  LedOff(ORANGE);
+  LedOff(RED);
   /* If good initialization, set state to Idle */
   if( 1 )
   {
@@ -140,7 +148,48 @@ State Machine Function Definitions
 /* What does this state do? */
 static void UserApp1SM_Idle(void)
 {
-     
+  static bYellowBlink = FALSE;
+ //if button zero is pressed, turn Left most light on
+ if (IsButtonPressed(BUTTON0))
+ {
+  LedOn(WHITE);
+ }    
+ else
+ {
+  LedOff(WHITE);
+ }
+ //FIXME
+ //IF BUTTON ONE PRESSED, MAKE YELLOW BLINK
+ if (WasButtonPressed(BUTTON1))
+ {
+  ButtonAcknowledge(BUTTON1);
+  if(!bYellowBlink)
+  {
+    bYellowBlink = FALSE;
+    LedOff(YELLOW);
+  }
+  else{
+    bYellowBlink = TRUE;
+    LedBlink(YELLOW, LED_1HZ);
+  }
+  
+  //if button 2 held if button 3 held for two seconds
+  if (IsButtonHeld(BUTTON3, 2000))
+  {
+    LedOn(CYAN);
+  }
+  else{
+    LedOff(CYAN);
+  }
+  // INSTANTLY TURN ON/OFF PURPLE WHEN BUTTON TWO IS PRESSED
+  if (IsButtonPressed(BUTTON2))
+ {
+  LedOn(PURPLE);
+ }    
+ else
+ {
+  LedOff(PURPLE);
+ }
 } /* end UserApp1SM_Idle() */
      
 
