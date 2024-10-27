@@ -148,7 +148,7 @@ State Machine Function Definitions
 /* What does this state do? */
 static void UserApp1SM_Idle(void)
 {
-  static bYellowBlink = FALSE;
+  static bool bYellowBlink = FALSE;
  //if button zero is pressed, turn Left most light on
  if (IsButtonPressed(BUTTON0))
  {
@@ -160,19 +160,20 @@ static void UserApp1SM_Idle(void)
  }
  //FIXME
  //IF BUTTON ONE PRESSED, MAKE YELLOW BLINK
- if (WasButtonPressed(BUTTON1))
+ if ( WasButtonPressed(BUTTON1) )
  {
   ButtonAcknowledge(BUTTON1);
   if(!bYellowBlink)
   {
+    bYellowBlink = TRUE;
+    
+    LedBlink(YELLOW, LED_1HZ);
+  }
+  else{
     bYellowBlink = FALSE;
     LedOff(YELLOW);
   }
-  else{
-    bYellowBlink = TRUE;
-    LedBlink(YELLOW, LED_1HZ);
-  }
-  
+ }
   //if button 2 held if button 3 held for two seconds
   if (IsButtonHeld(BUTTON3, 2000))
   {
