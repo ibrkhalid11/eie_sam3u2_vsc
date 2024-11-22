@@ -140,7 +140,7 @@ State Machine Function Definitions
 /* What does this state do? */
 static void UserApp2SM_Idle(void)
 {
-    
+    //for(u32 i = 0; i < 50000; i++); //used for system time vio reporting, DONT EVER RUN
 } /* end UserApp2SM_Idle() */
      
 

@@ -64,7 +64,7 @@ Variable names shall start with "UserApp1_<type>" and be declared as static.
 ***********************************************************************************************************************/
 static fnCode_type UserApp1_pfStateMachine;               /*!< @brief The state machine function pointer */
 //static u32 UserApp1_u32Timeout;                           /*!< @brief Timeout counter used across states */
-
+static u8 UserApp1_au8UserInputBuffer[U16_USER1_INPUT_BUFFER_SIZE];
 
 /**********************************************************************************************************************
 Function Definitions
@@ -95,6 +95,18 @@ Promises:
 */
 void UserApp1Initialize(void)
 {
+  /*u8 auString1[] = "\n\rA string to print that starts and ends with a line feed and cursor return \n\r";
+  u8 auString2[] = "Here's a number: ";
+  u8 auString3[] = "<-- The cursor was here.";
+  u32 u32number = 1234567;
+
+  DebugPrintf(auString1);
+  DebugPrintf(auString2);
+  DebugPrintNumber(u32number);
+  DebugLineFeed();
+  DebugPrintf(auString3);
+  DebugLineFeed();
+  */
   /* If good initialization, set state to Idle */
   if( 1 )
   {
@@ -143,7 +155,14 @@ State Machine Function Definitions
 /* What does this state do? */
 static void UserApp1SM_Idle(void)
 {
-     
+  static u8 au8NumCharMessage[] = "\n\r characters in buffer: ";
+  if(WasButtonPressed(BUTTON0)){
+    ButtonAcknowledge(BUTTON0);
+    DebugPrintf(au8NumCharMessage);
+    DebugPrintNumber(G_u8DebugScanfCharCount);
+    DebugLineFeed();
+  }   
+  
 } /* end UserApp1SM_Idle() */
      
 
