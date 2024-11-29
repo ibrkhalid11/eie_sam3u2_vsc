@@ -92,6 +92,7 @@ Promises:
 */
 void UserApp1Initialize(void)
 {
+  LcdCommand(LCD_CLEAR_CMD);
   LcdMessage(LINE1_START_ADDR, UserApp_au8My_Name);
   LcdMessage(LINE2_START_ADDR, "0");
   LcdMessage(LINE2_START_ADDR+6, "1");
@@ -107,7 +108,7 @@ void UserApp1Initialize(void)
     /* The task isn't properly initialized, so shut it down and don't run */
     UserApp1_pfStateMachine = UserApp1SM_Error;
   }
-
+  LcdCommand(LCD_HOME_CMD);
 } /* end UserApp1Initialize() */
 
   
@@ -145,7 +146,19 @@ State Machine Function Definitions
 /* What does this state do? */
 static void UserApp1SM_Idle(void)
 {
-     
+  static bool bCursorOn = FALSE;
+
+  if(WasButtonPressed(BUTTON0)){
+    ButtonAcknowledge(BUTTON0);
+    if (bCursorOn){
+      LcdCommand(LCD_DISPLAY_CMD | LCD_DISPLAY_ON);
+      bCursorOn = FALSE;
+    }
+    else{
+      LcdCommand(LCD_DISPLAY_CMD | LCD_DISPLAY_ON | LCD_DISPLAY_CURSOR | LCD_DISPLAY_BLINK);
+      bCursorOn = TRUE;
+    }
+  } 
 } /* end UserApp1SM_Idle() */
      
 
