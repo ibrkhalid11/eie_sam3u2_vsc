@@ -61,7 +61,7 @@ Variable names shall start with "UserApp1_<type>" and be declared as static.
 ***********************************************************************************************************************/
 static fnCode_type UserApp1_pfStateMachine;               /*!< @brief The state machine function pointer */
 //static u32 UserApp1_u32Timeout;                           /*!< @brief Timeout counter used across states */
-
+static u8 UserApp_au8My_Name[] = "Ibrahim Khalid";
 
 /**********************************************************************************************************************
 Function Definitions
@@ -92,10 +92,11 @@ Promises:
 */
 void UserApp1Initialize(void)
 {
-  u8 au8message[] = "Hello World!";
-  LcdMessage(LINE1_START_ADDR, au8message);
-  LcdClearChars(LINE1_START_ADDR+13, 3);
-  LcdCommand(LCD_CLEAR_CMD);
+  LcdMessage(LINE1_START_ADDR, UserApp_au8My_Name);
+  LcdMessage(LINE2_START_ADDR, "0");
+  LcdMessage(LINE2_START_ADDR+6, "1");
+  LcdMessage(LINE2_START_ADDR+13, "2");
+  LcdMessage(LINE2_END_ADDR, "3");
   /* If good initialization, set state to Idle */
   if( 1 )
   {
